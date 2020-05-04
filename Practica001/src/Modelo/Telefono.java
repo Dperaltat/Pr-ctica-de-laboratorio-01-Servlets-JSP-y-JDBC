@@ -8,11 +8,14 @@ public class Telefono {
 	private String tel_operadora;
 		
 	public Telefono(int tel_id, String tel_numero, String tel_tipo, String tel_operadora) {
-		super();
 		this.tel_id = tel_id;
 		this.tel_numero = tel_numero;
 		this.tel_tipo = tel_tipo;
 		this.tel_operadora = tel_operadora;
+	}
+	
+	public Telefono(){
+		
 	}
 	
 	public int getTel_id() {
@@ -39,6 +42,13 @@ public class Telefono {
 	public void setTel_operadora(String tel_operadora) {
 		this.tel_operadora = tel_operadora;
 	}
+
+	@Override
+	public String toString() {
+		return "Telefono [tel_id=" + tel_id + ", tel_numero=" + tel_numero + ", tel_tipo=" + tel_tipo
+				+ ", tel_operadora=" + tel_operadora + "]";
+	}
+	
 	
 	
 }

@@ -11,13 +11,16 @@ public class Persona {
 	
 	public Persona(int usu_id, String usu_cedula, String usu_nombre, String usu_apellido, String usu_correo,
 			String usu_contrasenia) {
-		super();
 		this.usu_id = usu_id;
 		this.usu_cedula = usu_cedula;
 		this.usu_nombre = usu_nombre;
 		this.usu_apellido = usu_apellido;
 		this.usu_correo = usu_correo;
 		this.usu_contrasenia = usu_contrasenia;
+	}
+	
+	public Persona(){
+		
 	}
 	
 	public int getUsu_id() {
@@ -55,6 +58,13 @@ public class Persona {
 	}
 	public void setUsu_contrasenia(String usu_contrasenia) {
 		this.usu_contrasenia = usu_contrasenia;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [usu_id=" + usu_id + ", usu_cedula=" + usu_cedula + ", usu_nombre=" + usu_nombre
+				+ ", usu_apellido=" + usu_apellido + ", usu_correo=" + usu_correo + ", usu_contrasenia="
+				+ usu_contrasenia + "]";
 	}
 	
 	
