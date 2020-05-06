@@ -9,16 +9,14 @@ public interface GenericDAO<T, ID> {
 
 	public void createTable();
 
-	public void create(Telefono telefono);
+	public void create(T entity);
 
 	public T read(ID id);
 
-	public void update(Telefono telefono);
+	public void update(T entity);
 
-	public void delete(Telefono telefono);
+	public void delete(T entity);
 
 	public List<T> find();
-
-	void update(Persona persona);
 
 }

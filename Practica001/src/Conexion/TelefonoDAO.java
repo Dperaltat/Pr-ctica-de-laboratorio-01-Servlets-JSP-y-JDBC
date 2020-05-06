@@ -1,9 +1,11 @@
 package Conexion;
 
+import java.util.Set;
+
 import Modelo.Telefono;
 
 public interface TelefonoDAO extends GenericDAO<Telefono, Integer>{
 
-	Telefono findByUserId(int usu_id);
+	public abstract Telefono findByUserId(Integer usu_id);
 	
 }

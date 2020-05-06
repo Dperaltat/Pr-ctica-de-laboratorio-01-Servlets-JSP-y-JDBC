@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 public class ContextJDBC {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/Guia_telefónica";
+	private static final String URL = "jdbc:mysql://localhost:3306/guia_telefonica";
 	private static final String USER = "root";
-	private static final String PASS = "";
+	private static final String PASS = "12345.a";
 	private static ContextJDBC jdbc1 = null;
 	private static ContextJDBC jdbc2 = null;
 	private Statement statement = null;
@@ -57,7 +57,7 @@ public class ContextJDBC {
 		return jdbc1;
 
 	}
-	/*
+	
 	protected static ContextJDBC getJDBC2() {
 		if (jdbc2 == null) {
 			jdbc2 = new ContextJDBC();
@@ -65,5 +65,5 @@ public class ContextJDBC {
 		return jdbc2;
 
 	}
-	*/
+	
 }

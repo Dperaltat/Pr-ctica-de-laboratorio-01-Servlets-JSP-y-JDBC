@@ -12,6 +12,7 @@ public class Persona {
 	
 	public Persona(int usu_id, String usu_cedula, String usu_nombre, String usu_apellido, String usu_correo,
 			String usu_contrasenia) {
+		super();
 		this.usu_id = usu_id;
 		this.usu_cedula = usu_cedula;
 		this.usu_nombre = usu_nombre;
@@ -19,7 +20,7 @@ public class Persona {
 		this.usu_correo = usu_correo;
 		this.usu_contrasenia = usu_contrasenia;
 	}
-	
+
 	public Persona(){
 		
 	}
