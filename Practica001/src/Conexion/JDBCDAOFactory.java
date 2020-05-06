@@ -1,7 +1,7 @@
 package Conexion;
 
-import Controlador.JDBCPersonaDAO;
-import Controlador.JDBCTelefonoDAO;
+import jdbc.JDBCPersonaDAO;
+import jdbc.JDBCTelefonoDAO;
 
 public class JDBCDAOFactory extends DAOFactory{
 	

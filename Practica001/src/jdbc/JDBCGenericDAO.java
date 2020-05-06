@@ -1,4 +1,4 @@
-package Controlador;
+package jdbc;
 
 import Conexion.GenericDAO;
 
