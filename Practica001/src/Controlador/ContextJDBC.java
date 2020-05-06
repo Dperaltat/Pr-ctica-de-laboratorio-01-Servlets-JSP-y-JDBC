@@ -1,4 +1,4 @@
-package Conexion;
+package Controlador;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,17 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ConexionJDBC {
-	
+public class ContextJDBC {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/guia_telefonica";
+	private static final String URL = "jdbc:mysql://localhost:3306/Guia_telefónica";
 	private static final String USER = "root";
-	private static final String PASS = "12345.a";
-	private static ConexionJDBC jdbc1 = null;
-	private static ConexionJDBC jdbc2 = null;
+	private static final String PASS = "";
+	private static ContextJDBC jdbc1 = null;
+	private static ContextJDBC jdbc2 = null;
 	private Statement statement = null;
 
-	public ConexionJDBC() {
+	public ContextJDBC() {
 		this.connect();
 	}
 
@@ -40,7 +39,7 @@ public class ConexionJDBC {
 		}
 		return null;
 	}
-	
+
 	public boolean update(String sql) {
 		try {
 			this.statement.executeUpdate(sql);
@@ -51,12 +50,20 @@ public class ConexionJDBC {
 		}
 	}
 	
-	protected static ConexionJDBC getJDBC1() {
+	protected static ContextJDBC getJDBC1() {
 		if (jdbc1 == null) {
-			jdbc1 = new ConexionJDBC();
+			jdbc1 = new ContextJDBC();
 		}
 		return jdbc1;
 
 	}
-	
+	/*
+	protected static ContextJDBC getJDBC2() {
+		if (jdbc2 == null) {
+			jdbc2 = new ContextJDBC();
+		}
+		return jdbc2;
+
+	}
+	*/
 }
