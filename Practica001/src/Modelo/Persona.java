@@ -1,7 +1,10 @@
 package Modelo;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int usu_id;
 	private String usu_cedula;
 	private String usu_nombre;

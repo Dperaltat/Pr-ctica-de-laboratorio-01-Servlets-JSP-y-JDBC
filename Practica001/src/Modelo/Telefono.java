@@ -1,7 +1,10 @@
 package Modelo;
 
-public class Telefono {
+import java.io.Serializable;
+
+public class Telefono implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int tel_id;
 	private String tel_numero;
 	private String tel_tipo;
