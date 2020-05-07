@@ -8,32 +8,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Conexion.DAOFactory;
-import Conexion.PersonaDAO;
 import Conexion.TelefonoDAO;
+import Modelo.Telefono;
 
-
-@WebServlet("/CrearTablaController")
-public class CrearTablaControlador extends HttpServlet{
+@WebServlet("/EliminarTelefonoControlador")
+public class EliminarTelefonoControlador extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TelefonoDAO telefonoDAO;
+	private Telefono telefono;
 
-	public CrearTablaControlador() {
+	public EliminarTelefonoControlador() {
 		telefonoDAO = DAOFactory.getFactory().getTelefonoDAO();
-
+		telefono = new Telefono();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String url = null;
 		try {
-			telefonoDAO.createTable();
+			telefono.setTel_id(Integer.valueOf(request.getParameter("tel_id")));			
+			telefonoDAO.delete(telefono);
+
 			url = "/index.html";
 		} catch (Exception e) {
 			url = "/JSPs/error.jsp";
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
-
 	}
-	
-	
 }
