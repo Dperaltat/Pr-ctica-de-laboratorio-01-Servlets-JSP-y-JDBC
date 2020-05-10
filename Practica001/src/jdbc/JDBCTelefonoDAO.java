@@ -123,5 +123,17 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		}
 		return telefono;
 	}
+
+	@Override
+	public int buscar(String email, String pwd) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String cedula(String cdi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

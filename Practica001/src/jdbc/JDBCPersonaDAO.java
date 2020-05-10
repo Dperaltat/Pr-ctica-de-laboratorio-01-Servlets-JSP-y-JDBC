@@ -115,5 +115,32 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements 
 		}
 		return list;
 	}
+	
+	@Override
+	public int buscar(String email, String pwd) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Correo:...."+ email.toString());
+		int i=0;
+		Persona persona = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM Usuario where usu_correo="+"'"+email+"'"+"AND usu_contrasenia="+"'"+pwd+"'");
+		try {
+			if( rs != null && rs.next()) {
+				i=1;
+				
+			}
+		}catch(SQLException e) {
+			System.out.println(">>>WARNING (JDBCPersonaDAO): buscar" + e.getMessage());
+		}
+		
+		return i;
+	}
+
+
+	@Override
+	public String cedula(String cdi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
