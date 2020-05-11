@@ -6,9 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Persona Encontrada</title>
+<title>Teléfono Encontrada</title>
+<link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
 <body>
+	<ul>
+		<li><a href="/Practica001/index.html">Home</a></li>
+		<li><a href="/Practica001/JSPs/CrearUsuario.jsp">Regístrate</a></li>
+		<li><a href="/Practica001/JSPs/login.jsp">Inicia Sesión</a></li>
+		<li><a href="/Practica001/JSPs/Invitado.jsp">Buscar en Modo Invitado</a></li>
+	</ul>
 	<c:set var="t" scope="request" value="${telefono}" />
 	<h1>Teléfono encontrado</h1>		
 		

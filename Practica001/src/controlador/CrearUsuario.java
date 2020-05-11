@@ -43,7 +43,7 @@ public class CrearUsuario extends HttpServlet {
 		String resp = request.getParameter("resp");
 		PersonaDAO personaDAO = DAOFactory.getFactory().getPersonaDAO();
 		if(resp.equals("Registrarse")) {
-			int id=0;
+			int id=12;
 			usu_nombre = request.getParameter("usu_nombre");
 			usu_apellido = request.getParameter("usu_apellido");
 			usu_cedula = request.getParameter("usu_cedula");

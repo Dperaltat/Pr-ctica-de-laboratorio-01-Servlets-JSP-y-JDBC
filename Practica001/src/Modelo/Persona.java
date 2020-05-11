@@ -28,6 +28,8 @@ public class Persona implements Serializable{
 		
 	}
 
+	
+	
 	public int getUsu_id() {
 		return usu_id;
 	}
@@ -90,6 +92,6 @@ public class Persona implements Serializable{
 				+ ", usu_apellido=" + usu_apellido + ", usu_correo=" + usu_correo + ", usu_contrasenia="
 				+ usu_contrasenia + ", Telefono=" + Telefono + "]";
 	}
-	
-	
+
+
 }

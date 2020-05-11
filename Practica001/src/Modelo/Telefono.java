@@ -15,7 +15,7 @@ public class Telefono implements Serializable{
 		
 	}
 	
-	public Telefono(int tel_id, String tel_numero, String tel_tipo, String tel_operadora) {
+	public Telefono(int teñ_id, String tel_numero, String tel_tipo, String tel_operadora) {
 		super();
 		this.tel_id = tel_id;
 		this.tel_numero = tel_numero;
@@ -23,6 +23,8 @@ public class Telefono implements Serializable{
 		this.tel_operadora = tel_operadora;
 	}
 
+	
+	
 	public int getTel_id() {
 		return tel_id;
 	}
@@ -68,7 +70,6 @@ public class Telefono implements Serializable{
 		return "Telefono [tel_id=" + tel_id + ", tel_numero=" + tel_numero + ", tel_tipo=" + tel_tipo
 				+ ", tel_operadora=" + tel_operadora + ", persona=" + persona + "]";
 	}
-		
-	
+
 
 }

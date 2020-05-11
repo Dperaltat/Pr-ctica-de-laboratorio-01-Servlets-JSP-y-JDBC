@@ -130,10 +130,24 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		return 0;
 	}
 
+
 	@Override
 	public String cedula(String cdi) {
 		// TODO Auto-generated method stub
-		return null;
+		String ced = null;
+		Persona persona = null;
+		ced = persona.getUsu_cedula();
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_cedula='"+persona.getUsu_cedula());
+		try {
+			if( rs != null && rs.next()) {
+				ced = rs.getString("usu_cedula");
+			}
+		}catch(SQLException e) {
+			
+		}
+		return ced;
+		
+
 	}
 }
 

@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Teléfono encontrado</title>
+<title>Listas de telefonos</title>
+<link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
 <body>
@@ -16,26 +17,27 @@
 		<li><a href="/Practica001/JSPs/Invitado.jsp">Buscar en Modo Invitado</a></li>
 		<li><a href="/Practica001/index.html">Home</a></li>
 	</ul>
-	<c:set var="lista" scope="request" value="${telefono}" />
-	<h1>Lista de teléfonos</h1>
+<form action="/Practica001/src/ec/ups/edu/controlador/ListarTelefonosControlador.java" method="get">
+	<c:set var="lista" scope="request" value="${listaTelefono}" />
+	<h1>Lista de telefonos</h1>
 
 	<table>
 		<tr>
-			<td><strong>Id</strong></td>
-			<td><strong>Número</strong></td>
-			<td><strong>Tipo</strong></td>
+			<td><strong>codigo</strong></td>
+			<td><strong>telefono</strong></td>
+			<td><strong>tipo</strong></td>
 			<td><strong>Operadora</strong></td>
 		</tr>
 		<c:forEach var="t" items="${lista}">
 			<tr>
-				<td>${t.tel_id}</td>
-				<td>${t.tel_numero}</td>
-				<td>${t.tel_tipo}</td>
-				<td>${t.tel_operadora}</td>
+				<td>${t.codigo}</td>
+				<td>${t.numero}</td>
+				<td>${t.tipo}</td>
+				<td>${t.operadora}</td>
 			</tr>
 		</c:forEach>
 	</table>
-
+</form>
 </body>
 <footer>
   <p>Posted by: Daniel Peralta</p>
