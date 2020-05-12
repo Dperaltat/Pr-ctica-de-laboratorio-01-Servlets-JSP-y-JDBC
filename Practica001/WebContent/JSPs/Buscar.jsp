@@ -11,17 +11,13 @@
 <body>
 	<div class="login">
 	<ul>			
-		<li><a href="/Practica001/JSPs/CrearUsuario.jsp">Regístrate</a></li>
-		<li><a href="/Practica001/JSPs/login.jsp">Inicia Sesión</a></li>
-		<li><a href="/Practica001/JSPs/Invitado.jsp">Buscar en Modo Invitado</a></li>
-		<li><a href="/Practica001/JSPs/index.jsp">Home</a></li>			
+		<li><a href="/Practica001/JSPs/Agregar.jsp">Agregar Datos</a>			
+		<li><a href="/Practica001/JSPs/login.jsp">Cerrar Sesión</a></li>
+		<li><a href="/Practica001/ControladorSesion?id=2&ced=${p1.usu_id}">Mi Cuenta</a></li>		
 	</ul>
 	</div>
 	<div>
 		<h1>Busquedas</h1>
-		<h1>
-			<a href="/Practica001/ControladorSesion?id=3" id="contact-link">Contactos</a>
-		</h1>
 	</div>
 	<br>
 <form action="/Practica001/Buscar?id=1" method="POST">
