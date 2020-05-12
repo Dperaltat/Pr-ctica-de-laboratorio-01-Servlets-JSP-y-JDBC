@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>USUARIO</title>
 <link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
-<body id="home">
+<body>
 	<div>
-	<ul>			
+	<ul>
+		<li><a href="/Practica001/JSPs/Buscar.jsp">Buscar</a>	
+		<li><a href="/Practica001/JSPs/Agregar.jsp">Agregar Datos</a>		
 		<li><a href="/Practica001/JSPs/login.jsp">Cerrar Sesión</a></li>		
 	</ul>
 	</div>
@@ -20,51 +22,17 @@
 
 <%/* <h1>Login con exito</h1> */%>
 	
-	<div class="header">
+	<div>
 		<div>
-  		<h1>Bienvenido ${p2.nombre }</h1>
-  		Busca por el número de Cedula.
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control">
-      <span class="input-group-btn">
-        <button class="btn btn-primary" name="usu_cedula" type="button">Buscar</button>
-      </span>
-    </div>
-  </div>
-</div>
-  		Busca por el número de Correo.
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control">
-      <span class="input-group-btn">
-        <button class="btn btn-primary" name="usu_correo" type="button">Buscar</button>
-      </span>
-    </div>
-  </div>
-</div>
-  		<h1> ${p2.usu_nombre} ${p2.usu_apellido }</h1>
+  		<h1>Bienvenido ${p2.nombre}</h1>
+
+	<div>
+		<div>
+  			<h1> ${p2.nombre} ${p2.apellido}</h1>
   			<ul>
   				<li><a href="/Practica001/ControladorSesion?id=2&idU=${p2.usu_id}"></a>
   			</ul>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 	</div>
 		
 	<table class="table">
@@ -79,11 +47,11 @@
 	<tbody>
 		<c:forEach var="telf" items="${t1}">
 			<tr>	
-				<td>${telf.tel_id}</td>
-				<td>${telf.tel_numero}</td>
-				<td>${telf.tel_tipo}</td>
-				<td>${telf.tel_operadora}</td>
-				<td><a href="/Practica-1/EliminarNumero?id=${telf.tel_id}&idUser=${p2.usu_id}">Eliminar</a></td>
+				<td>${t1.tel_id}</td>
+				<td>${t1.tel_numero}</td>
+				<td>${t1.tel_tipo}</td>
+				<td>${t1.tel_operadora}</td>
+				<td><a href="/Practica001/EliminarNumero?id=${t1.tel_id}&idUser=${p2.usu_id}">Eliminar</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>

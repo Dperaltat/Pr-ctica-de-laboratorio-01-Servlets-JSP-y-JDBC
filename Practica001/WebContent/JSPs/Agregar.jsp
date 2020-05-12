@@ -10,7 +10,8 @@
 </head>
 <body id="home">
 	<div class="login">
-	<ul>			
+	<ul>	
+		<li><a href="/Practica001/JSPs/Agregar.jsp">Agregar Datos</a>			
 		<li><a href="/Practica001/JSPs/login.jsp">Cerrar Sesión</a></li>
 		<li><a href="/Practica001/ControladorSesion?id=2&ced=${p1.usu_id}">Mi Cuenta</a></li>  		
 	</ul>
@@ -24,7 +25,7 @@
 	<h1>${p1.usu_correo}</h1>
 
 <div  class="form-inline">
-	<form action="/Practica001/AgregarNumero?ced=${p2 }" method="POST">
+	<form action="/Practica001/Agregar?ced=${p2 }" method="POST">
 
 		<h1>Ingrese el numero para agregar:</h1>
 		

@@ -31,7 +31,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, String> implements
 		
 		try {
 			if(rs.next()) {
-				t = new Telefono(rs.getInt("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora"));
+				t = new Telefono(rs.getString("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora"));
 			}
 		}catch(SQLException e) {
 			System.out.println(">>> Warning (TelefonoDAO:read): "+ e.getMessage());
@@ -61,7 +61,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, String> implements
 		ResultSet rs = conexionDos.query("SELECT * FROM telefono");
 		try {
 			while(rs.next()) {
-				listTelefono.add(new Telefono(rs.getInt("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				listTelefono.add(new Telefono(rs.getString("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora")));
 				//System.out.println("desde el jdbcTelefono"+listTelefono);
 			}
 		}catch(SQLException e) {
@@ -155,7 +155,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, String> implements
 		ResultSet rs = conexionDos.query("SELECT * FROM usuario, telefono WHERE telefono.tel_id=usuario.usu_id and usuario.usu_cedula="+ cedula);
 		try {
 			while (rs.next()) {
-				list.add(new Telefono(rs.getInt("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				list.add(new Telefono(rs.getString("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora")));
 				//System.out.println("desde el jdbcTelefono"+listTelefono);
 			
 			}
@@ -244,7 +244,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, String> implements
 	@Override
 	public void eliminar2(String tel_id) {
 		// TODO Auto-generated method stub
-		conexionDos.update("DELETE FROM telefono WHERE tel_id="+Integer.parseInt(tel_id));
+		conexionDos.update("DELETE FROM telefono WHERE tel_id="+(tel_id));
 	}
 
 	@Override

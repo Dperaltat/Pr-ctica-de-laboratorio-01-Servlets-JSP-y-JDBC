@@ -9,8 +9,8 @@
 <link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
-<body id="home">
-	<div class="login">
+<body>
+	<div>
 	<ul>			
 		<li><a href="/Practica001/JSPs/CrearUsuario.jsp">Regístrate</a></li>
 		<li><a href="/Practica001/JSPs/login.jsp">Inicia Sesión</a></li>
@@ -18,6 +18,8 @@
 		<li><a href="/Practica001/JSPs/index.jsp">Home</a></li>			
 	</ul>
 	</div>
+	
+	<h1>AGENDA TELEFÓNICA</h1>
 </body>
 <footer>
   <p>Posted by: Daniel Peralta</p>

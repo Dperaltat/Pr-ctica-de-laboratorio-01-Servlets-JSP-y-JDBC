@@ -34,14 +34,14 @@ public class ControladorSesion extends HttpServlet {
 		PersonaDAO personaDao = DAOFactory.getFactory().getPersonaDAO();
 		
 		
-		if(Integer.parseInt(request.getParameter("usu_id"))==1) {
+		if(Integer.parseInt(request.getParameter("id"))==1) {
 			
 			PersonaDAO usuDAO = DAOFactory.getFactory().getPersonaDAO();
 			request.setAttribute("idc", request.getParameter("c"));
 			request.setAttribute("usuarios", usuDAO.find());
 			
 			getServletContext().getRequestDispatcher("/JSPs/Agregar.jsp").forward(request, response);
-		}else if(Integer.parseInt(request.getParameter("usu_id"))==2) {
+		}else if(Integer.parseInt(request.getParameter("id"))==2) {
 			
 			persona = personaDao.read(request.getParameter("usu_id"));
 			request.setAttribute("telefono", telfDAO.buscarCedula(persona.getUsu_cedula()));
@@ -50,7 +50,7 @@ public class ControladorSesion extends HttpServlet {
 			getServletContext().getRequestDispatcher("/JSPs/IndexUsuario.jsp").forward(request, response);
 		}
 		//No tocar
-		if(Integer.parseInt(request.getParameter("usu_id"))==3) {
+		if(Integer.parseInt(request.getParameter("id"))==3) {
 			System.out.println("Ingresando...");
 			request.setAttribute("telefonos", telfDAO.find());
 	

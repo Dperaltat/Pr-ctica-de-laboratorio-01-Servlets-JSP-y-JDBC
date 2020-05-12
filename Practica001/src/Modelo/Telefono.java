@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Telefono implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private int tel_id;
+	private String tel_id;
 	private String tel_numero;
 	private String tel_tipo;
 	private String tel_operadora;
@@ -15,7 +15,7 @@ public class Telefono implements Serializable{
 		
 	}
 	
-	public Telefono(int teñ_id, String tel_numero, String tel_tipo, String tel_operadora) {
+	public Telefono(String tel_id, String tel_numero, String tel_tipo, String tel_operadora) {
 		super();
 		this.tel_id = tel_id;
 		this.tel_numero = tel_numero;
@@ -25,11 +25,11 @@ public class Telefono implements Serializable{
 
 	
 	
-	public int getTel_id() {
+	public String getTel_id() {
 		return tel_id;
 	}
 
-	public void setTel_id(int tel_id) {
+	public void setTel_id(String tel_id) {
 		this.tel_id = tel_id;
 	}
 

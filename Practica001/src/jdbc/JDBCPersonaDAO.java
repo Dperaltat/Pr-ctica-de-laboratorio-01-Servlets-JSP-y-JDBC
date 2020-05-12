@@ -27,7 +27,7 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, String> implements P
 	@Override
 	public void create(Persona entity) {
 		// TODO Auto-generated method stub
-		conexionUno.update("INSERT usuario VALUES ('"+entity.getUsu_cedula()+"', '" +entity.getUsu_nombre()+
+		conexionUno.update("INSERT usuario VALUES ('"+entity.getUsu_id()+"','"+entity.getUsu_cedula()+"', '" +entity.getUsu_nombre()+
 				"','"+entity.getUsu_apellido()+"','"+ entity.getUsu_correo()+"','" + entity.getUsu_contrasenia()+"')");
 	}
 
@@ -85,7 +85,7 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, String> implements P
 		// TODO Auto-generated method stub
 		
 		//System.out.println("Email: ------------- "+email.toString());
-		int i=0;
+		int i=1;
 		Persona persona = null;
 		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE  usu_correo=" +  "'" + email + "'" + "AND usu_contrasenia=" +  "'" + pwd + "'" );
 		try {

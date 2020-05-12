@@ -11,31 +11,57 @@ import Conexion.DAOFactory;
 import Conexion.TelefonoDAO;
 import Modelo.Telefono;
 
-@WebServlet("/BuscarTelefonoControlador")
+@WebServlet("/Buscar")
 public class Buscar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TelefonoDAO telefonoDao;
-	private Telefono telefono;
+       
 
-	public Buscar() {
-		telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
-		telefono = new Telefono();
+    public Buscar() {
+        super();
+        // TODO Auto-generated constructor stub
+        
+        
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 
-		String url = null;
-		try {
-			String id = request.getParameter("tel_id");
-			telefono = telefonoDao.read(id);
-			request.setAttribute("persona", telefono);
-			url = "/JSPs/buscar_telefono.jsp";
-		} catch (Exception e) {
-			url = "/JSPs/error.jsp";
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		TelefonoDAO telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
+
+		// out.println("<h1>Gracias por acceder al servidor</h1>");
+		// sesion.setAttribute("accesos", 1);
+		System.out.println("Buscando");
+		if (Integer.parseInt(request.getParameter("id")) == 1) {
+			// Correo
+			if (request.getParameter("correo") != null) {
+				System.out.print("Correo: " + request.getParameter("correo"));
+
+				request.setAttribute("telefono", telefonoDao.buscarCorreo(request.getParameter("correo")));
+				getServletContext().getRequestDispatcher("/JSPs/Buscar.jsp").forward(request, response);
+
+			}
+
+		} else {
+
 		}
-		getServletContext().getRequestDispatcher(url).forward(request, response);
+
+		if (Integer.parseInt(request.getParameter("id")) == 2) {
+			// Cedula
+			if (request.getParameter("cedula") != null) {
+				System.out.print("Cedula: " + request.getParameter("cedula"));
+				request.setAttribute("telefono", telefonoDao.buscarCedInv(request.getParameter("cedula")));
+				getServletContext().getRequestDispatcher("/JSPs/Busquedas.jsp").forward(request, response);
+			}
+		} else {
+
+		}
+		
 	}
 
 }
