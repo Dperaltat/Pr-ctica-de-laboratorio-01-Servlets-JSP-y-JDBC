@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class ContextJDBC {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/agenda";
+	private static final String URL = "jdbc:mysql://localhost:3306/guia-telefonica";
 	private static final String USER = "root";
 	private static final String PASS = "12345.a";
 	private static ContextJDBC jdbc1 = null;

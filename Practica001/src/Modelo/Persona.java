@@ -12,6 +12,7 @@ public class Persona implements Serializable{
 	private String usu_correo;
 	private String usu_contrasenia;
 	private Telefono Telefono;
+
 	
 	public Persona(int usu_id, String usu_cedula, String usu_nombre, String usu_apellido, String usu_correo,
 			String usu_contrasenia) {

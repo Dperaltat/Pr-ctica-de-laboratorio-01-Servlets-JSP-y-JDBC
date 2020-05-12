@@ -7,149 +7,100 @@ import java.util.List;
 
 import Conexion.PersonaDAO;
 import Conexion.TelefonoDAO;
+import Modelo.Contacto;
 import Modelo.Persona;
 import Modelo.Telefono;
 
-public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implements TelefonoDAO{
-	
-	
-	@Override
-	public void createTable() {
-
-		conexionDos.update("DROP TABLE IF EXISTS telefono");
-		conexionDos.update("CREATE TABLE telefono (" + "tel_id INT NOT NULL, tel_numero VARCHAR(45), "
-				+ "tel_tipo VARCHAR(45), tel_operadora VARCHAR(255), "
-				+ "usu_id INT, PRIMARY KEY (tel_id), FOREIGN KEY(usu_id) REFERENCES usuario(usu_id))");
-	}
+public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, String> implements TelefonoDAO{
+ 
 	
 	@Override
-	public void create(Telefono telefono) {
-
-		conexionDos.update("INSERT telefono VALUES (" + telefono.getTel_id() + ", '" + telefono.getTel_numero() + "', " + telefono.getTel_tipo()
-				+ "', " + telefono.getTel_operadora() + "', "
-				+ telefono.getPersona().getUsu_id()+ ")");
+	public void create(Telefono entity) {
+		// TODO Auto-generated method stub
+		conexionDos.update("INSERT into telefono (tel_id, tel_numero, tel_tipo, tel_operadora) values"
+				+ " ( '" + entity.getTel_id() + "', '"
+		+ entity.getTel_numero() + "','"+entity.getTel_tipo()+"','"+entity.getTel_operadora()+"' )");
 	}
 
-
 	@Override
-	public Telefono read(Integer id) {
-
-		Telefono telefono = null;
-		ResultSet rsTel = conexionUno.query("SELECT * FROM telefono WHERE tel_id=" + id);
+	public Telefono read(String id) {
+		// TODO Auto-generated method stub
+		
+		Telefono t = null;
+		ResultSet rs = conexionDos.query("SELECT * FROM telefono where tel_id='" + id+"'");
+		
 		try {
-			if (rsTel != null && rsTel.next()) {
-				telefono = new Telefono(rsTel.getInt("tel_id"), rsTel.getString("tel_numero"), 
-								rsTel.getString("tel_tipo"), rsTel.getString("tel_operadora"));
-
-				ResultSet rsUser = conexionDos.query("SELECT * FROM usuario WHERE usu_id=" + rsTel.getInt("usu_id"));
-				if (rsUser != null && rsUser.next()) {
-					Persona persona = new Persona(rsUser.getInt("usu_id"), rsUser.getString("usu_cedula"), rsUser.getString("usu_nombre"), rsUser.getString("usu_apellido"),
-							rsUser.getString("usu_correo"), rsUser.getString("usu_contrasenia"));
-					telefono.setPersona(persona);
-				}
-
+			if(rs.next()) {
+				t = new Telefono(rs.getInt("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora"));
 			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCTelefonoDAO:read): " + e.getMessage());
+		}catch(SQLException e) {
+			System.out.println(">>> Warning (TelefonoDAO:read): "+ e.getMessage());
 		}
-		if (telefono == null) {
-			return null;
-		}
-		return telefono;
-
+		
+		
+		return t;
 	}
 
 	@Override
-	public void update(Telefono telefono) {
-
-		conexionDos.update(
-				"UPDATE telefono SET tel_numero = '" + telefono.getTel_numero() + "' WHERE tel_id = " + telefono.getTel_id());
+	public void update(Telefono entity) {
+		// TODO Auto-generated method stub
+		conexionDos.update("UPDATE telefono SET tel_numero = '" + entity.getTel_numero() + "', tel_tipo = '" +  entity.getTel_tipo() + 
+				"', tel_operadora = '" + entity.getTel_operadora() + "'WHERE tel_id = " + entity.getTel_id());
 	}
 
 	@Override
-	public void delete(Telefono telefono) {
-
-		conexionDos.update("DELETE FROM telefono WHERE tel_id = " + telefono.getTel_id());
-
+	public void delete(Telefono entity) {
+		// TODO Auto-generated method stub
+		conexionDos.update("DELETE FROM telefono WHERE tel_id="+entity.getTel_id());
 	}
 
 	@Override
 	public List<Telefono> find() {
-		List<Telefono> list = new ArrayList<Telefono>();
-		ResultSet rsTel = conexionUno.query("SELECT * FROM telefono");
+		// TODO Auto-generated method stub
+		List<Telefono> listTelefono = new ArrayList<Telefono>();
+		ResultSet rs = conexionDos.query("SELECT * FROM telefono");
 		try {
-			while (rsTel.next()) {
-				Telefono telefono = new Telefono(rsTel.getInt("tel_id"), rsTel.getString("tel_numero"), rsTel.getString("tel_tipo")
-									, rsTel.getString("tel_operadora"));
-
-				int userId = rsTel.getInt("usu_id");
-				ResultSet rsUser = conexionDos.query("SELECT * FROM usuario WHERE usu_id=" + userId);
-				if (rsUser != null && rsUser.next()) {
-					Persona persona = new Persona(rsUser.getInt("usu_id"), rsUser.getString("usu_cedula"), rsUser.getString("usu_nombre"),
-							rsUser.getString("usu_apellido"), rsUser.getString("usu_correo"), rsUser.getString("usu_contrasenia"));
-					telefono.setPersona(persona);
-				}
-				list.add(telefono);
+			while(rs.next()) {
+				listTelefono.add(new Telefono(rs.getInt("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				//System.out.println("desde el jdbcTelefono"+listTelefono);
 			}
-
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCTelefonoDAO:find): " + e.getMessage());
+		}catch(SQLException e) {
+			System.out.println(">>> WARNING (JDBCTelefonoDAO: find) : " + e.getMessage());
 		}
-
-		return list;
+		
+		
+		return listTelefono;
 	}
-
-	@Override
-	public Telefono findByUserId(Integer userId) {
-		Telefono telefono = null;
-		ResultSet rsTel = conexionUno.query("SELECT * FROM telefono WHERE usu_id=" + userId);
-		try {
-			if (rsTel != null && rsTel.next()) {
-				telefono = new Telefono(rsTel.getInt("tel_id"), rsTel.getString("tel_numero"), rsTel.getString("tel_tipo"), rsTel.getString("tel_operadora"));
-
-				ResultSet rsUser = conexionDos.query("SELECT * FROM usuario WHERE usu_id=" + rsTel.getInt("usu_id"));
-				if (rsUser != null && rsUser.next()) {
-					Persona persona = new Persona(rsUser.getInt("usu_id"), rsUser.getString("usu_cedula"), rsUser.getString("usu_nombre"),
-							rsUser.getString("usu_apellido"), rsUser.getString("usu_correo"), rsUser.getString("usu_contrasenia"));
-					telefono.setPersona(persona);
-				}
-
-			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCTelefonoDAO:findByUserId): " + e.getMessage());
-		}
-		if (telefono == null) {
-			return null;
-		}
-		return telefono;
-	}
+	
 
 	@Override
 	public Persona buscar(String email, String pwd) {
-		
+		// TODO Auto-generated method stub
+		System.out.println("Email: ------------- "+email.toString());
 		int i=0;
 		Persona persona = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_correo="+"'"+email+"'"+"AND usu_contrasenia="+"'"+pwd+"'");
+		ResultSet rs = conexionDos.query("SELECT * FROM usuario WHERE  usu_correo=" +  "'" + email + "'" + "AND usu_contrasenia=" +  "'" + pwd + "'" );
 		try {
-			if( rs != null && rs.next()) {
+			if (rs != null && rs.next()) {
 				i=1;
-				persona = new Persona (rs.getInt(i), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"), rs.getString("usu_contrasena"));
+				persona = new Persona (rs.getInt("usu_id"), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"), rs.getString("usu_contrasenia"));
 			}
-		}catch(SQLException e) {
-			System.out.println(">>>WARNING (JDBCPersonaDAO): buscar" + e.getMessage());
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCPersonaDAO:read): " + e.getMessage());
 		}
+
+		
 		
 		return persona;
 	}
-
 
 	@Override
 	public String cedula(String cdi) {
 		// TODO Auto-generated method stub
 		String ced = null;
-		Persona persona = null;
-		ced = persona.getUsu_cedula();
-		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_cedula='"+persona.getUsu_cedula());
+		Persona us = null;
+		ced = us.getUsu_cedula();
+		ResultSet rs = conexionDos.query("SELECT * FROM usuario WHERE usu_cedula='"+cdi+"'");
 		try {
 			if( rs != null && rs.next()) {
 				ced = rs.getString("usu_cedula");
@@ -161,5 +112,151 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		
 
 	}
+
+	@Override
+	public List<Contacto> buscarCorreo(String correo) {
+		// TODO Auto-generated method stub
+		List<Contacto> listCont = new ArrayList<Contacto>();
+		System.out.print("Consultando.....");
+		
+		List<Telefono> list = new ArrayList<Telefono>();
+		ResultSet rs = conexionDos.query("SELECT * FROM telefono, usuario where usuario.usu_id=telefono.tel_id and usuario.usu_correo="+"'"+ correo+"'");
+		//ResultSet t = null;
+		try {
+			while (rs.next()) {
+				Contacto cont=new Contacto();
+				//list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				cont.setNumero(rs.getString("tel_numero"));
+				
+				cont.setOperadora(rs.getString("tel_operadora"));
+				
+				cont.setTipo(rs.getString("tel_tipo"));
+				
+				cont.setNombres(rs.getString("usu_nombre"));
+				
+				cont.setApellidos(rs.getString("usu_apellido"));
+				
+				cont.setCorreo(rs.getString("usu_correo"));
+
+				listCont.add(cont);
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:obtenerContacto): " + e.getMessage());
+		}
+		
+		return listCont;
+	}
+
+	@Override
+	public List<Telefono> buscarCedula(String cedula) {
+		List<Telefono> list = new ArrayList<Telefono>();
+		ResultSet rs = conexionDos.query("SELECT * FROM usuario, telefono WHERE telefono.tel_id=usuario.usu_id and usuario.usu_cedula="+ cedula);
+		try {
+			while (rs.next()) {
+				list.add(new Telefono(rs.getInt("tel_id"), rs.getString("tel_numero"), rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				//System.out.println("desde el jdbcTelefono"+listTelefono);
+			
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:find): " + e.getMessage());
+		}
+		return list;
+	}
+
+	@Override
+	public List<Contacto> obtenerContacto() {
+		// TODO Auto-generated method stub
+		List<Contacto> listCont = new ArrayList<Contacto>();
+		System.out.print("Consultando.....");
+		
+		//Usuario user = new Usuario();
+		
+		List<Telefono> list = new ArrayList<Telefono>();
+		ResultSet rs = conexionDos.query("SELECT * FROM telefono, usuario where usuario.usu_id=telefono.tel_id");
+		//ResultSet t = null;
+		try {
+			while (rs.next()) {
+				Contacto cont = new Contacto();
+				//list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				cont.setNumero(rs.getString("tel_numero"));
+				
+				cont.setOperadora(rs.getString("tel_operadora"));
+				
+				cont.setTipo(rs.getString("tel_tipo"));
+				
+				cont.setNombres(rs.getString("usu_nombre"));
+				
+				cont.setApellidos(rs.getString("usu_apellido"));
+				
+				cont.setCorreo(rs.getString("usu_correo"));
+				
+				listCont.add(cont);
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:obtenerContacto): " + e.getMessage());
+		}
+		
+		
+
+		return listCont;
 }
 
+	@Override
+	public List<Contacto> buscarCedInv(String cedula) {
+		// TODO Auto-generated method stub
+		List<Contacto> listCont = new ArrayList<Contacto>();
+		System.out.print("Consultando.....");
+		
+		List<Telefono> list = new ArrayList<Telefono>();
+		ResultSet rs = conexionDos.query("SELECT * FROM telefono, usuario where usuario.usu_id=telefono.tel_id and usuario.usu_cedula="+"'"+cedula+"'");
+		//ResultSet t = null;
+		try {
+			while (rs.next()) {
+				Contacto cont=new Contacto();
+				//list.add(new telefono(rs.getInt("tel_codigo"), rs.getString("tel_cedula"), rs.getString("tel_numero"),rs.getString("tel_tipo"), rs.getString("tel_operadora")));
+				cont.setNumero(rs.getString("tel_numero"));
+				
+				cont.setOperadora(rs.getString("tel_operadora"));
+				
+				cont.setTipo(rs.getString("tel_tipo"));
+				
+				cont.setNombres(rs.getString("usu_nombre"));
+				
+				cont.setApellidos(rs.getString("usu_apellido"));
+				
+				cont.setCorreo(rs.getString("usu_correo"));
+
+				listCont.add(cont);
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCTelefonoDAO:obtenerContacto): " + e.getMessage());
+		}
+		return listCont;
+	}
+
+	@Override
+	public void eliminar2(String tel_id) {
+		// TODO Auto-generated method stub
+		conexionDos.update("DELETE FROM telefono WHERE tel_id="+Integer.parseInt(tel_id));
+	}
+
+	@Override
+	public void createTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Telefono findByUserId(Integer usu_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -11,8 +11,8 @@ import Conexion.TelefonoDAO;
 import Modelo.Persona;
 import Modelo.Telefono;
 
-public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements PersonaDAO{
-	
+public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, String> implements PersonaDAO{
+	/*
 	@Override
 	public void createTable() {
 
@@ -22,115 +22,80 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements 
 				+ "usu_nombre VARCHAR(255), usu_apellido VARVHAR(255), usu_correo VARCHAR(255), +"
 				+ "usu_contrasenia VARCHAR(255), PRIMARY KEY (usu_id))");
 		DAOFactory.getFactory().getTelefonoDAO().createTable();
-	}
+	}*/
 	
 	@Override
-	public void create(Persona persona) {
-
-		conexionUno.update("INSERT usuario VALUES (" + persona.getUsu_id() + ", " + persona.getUsu_cedula() + ", '" + persona.getUsu_nombre()
-				+ "', '" + persona.getUsu_apellido() + "', '" + persona.getUsu_correo() + "', '" + persona.getUsu_contrasenia() + "')");
-		Telefono telefono = persona.getTelefono();
-		
-		if (telefono != null) {
-			DAOFactory.getFactory().getTelefonoDAO().create(telefono);
-		}
-
+	public void create(Persona entity) {
+		// TODO Auto-generated method stub
+		conexionUno.update("INSERT usuario VALUES ('"+entity.getUsu_cedula()+"', '" +entity.getUsu_nombre()+
+				"','"+entity.getUsu_apellido()+"','"+ entity.getUsu_correo()+"','" + entity.getUsu_contrasenia()+"')");
 	}
+
 	
 	@Override
-	public Persona read(Integer id) {
-
+	public Persona read(String id) {
+		// TODO Auto-generated method stub
 		Persona persona = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_id=" + id);
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_id="+id);
 		try {
 			if (rs != null && rs.next()) {
-				persona = new Persona(rs.getInt("usu_id"), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"),rs.getString("usu_contrasenia"));
+				persona = new Persona(rs.getInt("usu_id"),rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"), rs.getString("usu_correo"), rs.getString("usu_contrasenia"));
+			}
+		}catch(SQLException e) {
+			System.out.println("Error al leer usuario >>"+e.getMessage());
+		}
+		return persona;
+	}
+
+	@Override
+	public void update(Persona entity) {
+		// TODO Auto-generated method stub
+		conexionUno.update("'UPDATE usuario set usu_nombre='"+ entity.getUsu_nombre() + "',apellido='"+entity.getUsu_apellido()+
+				"'Where usu_cedula='"+entity.getUsu_cedula()+"");
+	}
+
+	@Override
+	public void delete(Persona entity) {
+		// TODO Auto-generated method stub
+		conexionUno.update("DELETE FROM Usuario WHERE usu_id="+entity.getUsu_id());
+	}
+
+	@Override
+	public List<Persona> find() {
+		// TODO Auto-generated method stub
+		List<Persona> list = new ArrayList<Persona>();
+		//, usuario where usuario.cedula = telefono.tel_cedula
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario");
+		try {
+			while(rs.next()) {
+				list.add(new Persona(rs.getInt("usu_id"), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"), rs.getString("usu_correo"), rs.getString("usu_contrasenia")));
+			}
+		}catch(SQLException e) {
+			System.out.println(">>>Warning (JDBCPersonaDAO:find): " + e.getMessage());
+		}
+		for(Persona usu: list) {
+			System.out.println(usu.getUsu_cedula() +", "+ usu.getUsu_nombre()+", "+usu.getUsu_apellido());
+		}
+		return list;
+	}
+
+
+	@Override
+	public Persona buscar(String email, String pwd) {
+		// TODO Auto-generated method stub
+		
+		//System.out.println("Email: ------------- "+email.toString());
+		int i=0;
+		Persona persona = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE  usu_correo=" +  "'" + email + "'" + "AND usu_contrasenia=" +  "'" + pwd + "'" );
+		try {
+			if (rs != null && rs.next()) {
+				i=1;
+				persona = new Persona (rs.getInt("usu_id"), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"), rs.getString("usu_contrasenia"));
 			}
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCPersonaDAO:read): " + e.getMessage());
 		}
-		if (persona == null) {
-			return null;
-		} else {
-			Telefono telefono = DAOFactory.getFactory().getTelefonoDAO().findByUserId(persona.getUsu_id());
-			if (telefono != null) {
-				persona.setTelefono(telefono);
-			}
-		}
-		return persona;
-	}
-	
-	@Override
-	public void update(Persona persona) {
-
-		TelefonoDAO telefonoDAO = DAOFactory.getFactory().getTelefonoDAO();
-		Telefono telefono = telefonoDAO.findByUserId(persona.getUsu_id());
-		System.out.println("Act:..." + persona);
-		conexionUno.update("UPDATE usuario SET usu_nombre = '" + persona.getUsu_nombre() + "', contrasenia = '" + persona.getUsu_contrasenia()
-				+ "', usu_correo= " + persona.getUsu_correo() + " WHERE usu_id = " + persona.getUsu_id());
-
-		if (persona.getTelefono() == null && telefono != null) {
-			telefonoDAO.delete(telefono);
-		} else if (persona.getTelefono()!= null && telefono == null) {
-			telefonoDAO.create(persona.getTelefono());
-		} else if (persona.getTelefono() != null && telefono != null) {
-			telefonoDAO.update(persona.getTelefono());
-		}
-
-	}
-	
-	@Override
-	public void delete(Persona persona) {
-
-		if (persona.getTelefono() != null) {
-			DAOFactory.getFactory().getTelefonoDAO().delete(persona.getTelefono());
-		}
-		conexionUno.update("DELETE FROM usuario WHERE usu_id = " + persona.getUsu_id());
-
-	}
-	
-	@Override
-	public List<Persona> find() {
-		List<Persona> list = new ArrayList<Persona>();
-		ResultSet rs = conexionUno.query("SELECT * FROM usuario");
-		try {
-			while (rs.next()) {
-				Persona persona = new Persona(rs.getInt("usu_id"), rs.getString("usu_cedula"), rs.getString("usu_nombre"),
-						rs.getString("usu_apellido"), rs.getString("usu_correo"), rs.getString("usu_contrasenia"));
-				list.add(persona);
-
-			}
-
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCPersonaDAO:find): " + e.getMessage());
-		}
-		for (int i = 0; i < list.size(); i++) {
-			Persona persona = list.get(i);
-			Telefono telefono = DAOFactory.getFactory().getTelefonoDAO().findByUserId(persona.getUsu_id());
-			if (telefono != null) {
-				// detail.setUser(user);
-				persona.setTelefono(telefono);
-				list.set(i, persona);
-			}
-		}
-		return list;
-	}
-	
-	@Override
-	public Persona buscar(String email, String pwd) {
-		
-		int i=0;
-		Persona persona = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_correo="+"'"+email+"'"+"AND usu_contrasenia="+"'"+pwd+"'");
-		try {
-			if( rs != null && rs.next()) {
-				i=1;
-				persona = new Persona (rs.getInt(i), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"), rs.getString("usu_contrasena"));
-			}
-		}catch(SQLException e) {
-			System.out.println(">>>WARNING (JDBCPersonaDAO): buscar" + e.getMessage());
-		}
-		
 		return persona;
 	}
 
@@ -139,6 +104,13 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements 
 	public String cedula(String cdi) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void createTable() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

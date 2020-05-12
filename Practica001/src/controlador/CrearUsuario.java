@@ -31,7 +31,7 @@ public class CrearUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
+		int usu_id=0;
 		String usu_nombre ="";
 		String usu_apellido ="";
 		String usu_cedula ="";
@@ -43,17 +43,17 @@ public class CrearUsuario extends HttpServlet {
 		String resp = request.getParameter("resp");
 		PersonaDAO personaDAO = DAOFactory.getFactory().getPersonaDAO();
 		if(resp.equals("Registrarse")) {
-			int id=12;
+			usu_id = request.getIntHeader("usu_id");
 			usu_nombre = request.getParameter("usu_nombre");
 			usu_apellido = request.getParameter("usu_apellido");
 			usu_cedula = request.getParameter("usu_cedula");
 			usu_correo = request.getParameter("usu_correo");
 			usu_contrasenia = request.getParameter("usu_contrasenia");
 			
-			persona = new Persona(id,usu_cedula, usu_nombre, usu_apellido, usu_correo, usu_contrasenia);
+			persona = new Persona(usu_id,usu_cedula, usu_nombre, usu_apellido, usu_correo, usu_contrasenia);
 			
 			personaDAO.create(persona);
-			getServletContext().getRequestDispatcher("/JSPs/ExitoCreacion.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/JSPs/Resgistrado.jsp").forward(request, response);
 		}
 	}
 

@@ -10,14 +10,16 @@
 <link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
-<body>
-	<ul>		
+<body id="home">
+	<div class="login">
+	<ul>			
 		<li><a href="/Practica001/JSPs/CrearUsuario.jsp">Regístrate</a></li>
 		<li><a href="/Practica001/JSPs/login.jsp">Inicia Sesión</a></li>
 		<li><a href="/Practica001/JSPs/Invitado.jsp">Buscar en Modo Invitado</a></li>
-		<li><a href="/Practica001/index.html">Home</a></li>
+		<li><a href="/Practica001/JSPs/index.jsp">Home</a></li>			
 	</ul>
-<form action="/Practica001/src/ec/ups/edu/controlador/ListarTelefonosControlador.java" method="get">
+	</div>	
+<form action="/Practica001/src/controlador/ListarTelefonoControlador.java" method="get">
 	<c:set var="lista" scope="request" value="${listaTelefono}" />
 	<h1>Lista de telefonos</h1>
 
@@ -41,6 +43,6 @@
 </body>
 <footer>
   <p>Posted by: Daniel Peralta</p>
-  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a>.</p>
+  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a></p>
 </footer>
 </html>

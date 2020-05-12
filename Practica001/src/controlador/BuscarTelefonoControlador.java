@@ -28,7 +28,7 @@ public class BuscarTelefonoControlador extends HttpServlet {
 
 		String url = null;
 		try {
-			int id = Integer.valueOf(request.getParameter("tel_id"));
+			String id = request.getParameter("tel_id");
 			telefono = telefonoDao.read(id);
 			request.setAttribute("persona", telefono);
 			url = "/JSPs/buscar_telefono.jsp";

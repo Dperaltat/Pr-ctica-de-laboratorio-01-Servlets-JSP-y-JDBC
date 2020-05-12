@@ -14,32 +14,22 @@ import Conexion.TelefonoDAO;
 import Modelo.Persona;
 
 
-@WebServlet(name = "LoginUsuario", urlPatterns = { "/LoginUsuario" })
+@WebServlet(name = "LoginUsuario", urlPatterns = {"/LoginUsuario"})
 public class LoginUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public LoginUsuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -52,7 +42,7 @@ public class LoginUsuario extends HttpServlet {
 		String url = null;
 		int i = 0;
 
-		String accion = request.getParameter("entrar");
+		String accion = request.getParameter("resp");
 		Persona persona = new Persona();
 		HttpSession sesion = request.getSession(true);
 
@@ -67,15 +57,15 @@ public class LoginUsuario extends HttpServlet {
 				if (persona != null) {
 					TelefonoDAO telfDAO = DAOFactory.getFactory().getTelefonoDAO();
 
-					request.setAttribute("telefono", telfDAO.cedula(persona.getUsu_cedula()));
+					request.setAttribute("telefono", telfDAO.buscarCedula(persona.getUsu_cedula()));
 					request.setAttribute("usuario", persona);
-					getServletContext().getRequestDispatcher("/JSPs/IndexUsuario.jsp").forward(request, response);
+					getServletContext().getRequestDispatcher("/JSPs/Usuario.jsp").forward(request, response);
 				} 
 			} catch (Exception e) {
 				System.out.println("Error en el login: " + e.getMessage());
 			}
 		}else {
-			getServletContext().getRequestDispatcher("/JSPs/Login.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/JSPs/login.jsp").forward(request, response);
 		}
 		
 

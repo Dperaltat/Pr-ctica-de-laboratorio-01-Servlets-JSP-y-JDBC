@@ -39,6 +39,6 @@
 </body>
 <footer>
   <p>Posted by: Daniel Peralta</p>
-  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a>.</p>
+  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a></p>
 </footer>
 </html>

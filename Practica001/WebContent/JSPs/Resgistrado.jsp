@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Teléfono Encontrada</title>
+<meta charset="ISO-8859-1">
+<title>Resgistro</title>
 <link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
@@ -19,5 +17,11 @@
 		<li><a href="/Practica001/JSPs/index.jsp">Home</a></li>			
 	</ul>
 	</div>
+	<h1>Gracias por Resgistrarte!!</h1>
+	<a href="/Practica001/JSPs/login.jsp">Inicia Sesión</a>
 </body>
+<footer>
+  <p>Posted by: Daniel Peralta</p>
+  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a></p>
+</footer>
 </html>

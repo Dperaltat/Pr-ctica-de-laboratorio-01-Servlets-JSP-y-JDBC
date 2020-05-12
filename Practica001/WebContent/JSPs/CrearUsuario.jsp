@@ -9,16 +9,18 @@
 <link rel="stylesheet"  href="/Practica001/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="/Practica001/css/estilo.css" type="text/css">
 </head>
-<body>
-	<ul>		
+<body id="home">
+	<div class="login">
+	<ul>			
 		<li><a href="/Practica001/JSPs/CrearUsuario.jsp">Regístrate</a></li>
 		<li><a href="/Practica001/JSPs/login.jsp">Inicia Sesión</a></li>
 		<li><a href="/Practica001/JSPs/Invitado.jsp">Buscar en Modo Invitado</a></li>
-		<li><a href="/Practica001/index.html">Home</a></li>
+		<li><a href="/Practica001/JSPs/index.jsp">Home</a></li>			
 	</ul>
+	</div>
 		<center>
-		<div class="form-horizontal" action="/Practica001/CrearUsuario" method="POST">
-			<form class="form-inline">
+		<div class="form-horizontal" >
+			<form class="form-inline" action="/Practica001/CrearUsuario" method="POST">
 				<h1>Registrarse</h1><br>
 				<div class="form-horizontal">
 					<label class="sr-only" for="exampleInputEmail3">Nombre:</label>
@@ -49,6 +51,6 @@
 </body>
 <footer>
   <p>Posted by: Daniel Peralta</p>
-  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a>.</p>
+  <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a></p>
 </footer>
 </html>
