@@ -8,32 +8,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Conexion.DAOFactory;
-import Conexion.PersonaDAO;
 import Conexion.TelefonoDAO;
+import Modelo.Telefono;
 
-
-@WebServlet("/CrearTablaController")
-public class CrearTablaControlador extends HttpServlet{
+@WebServlet("/BuscarTelefonoControlador")
+public class Buscar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TelefonoDAO telefonoDAO;
+	private TelefonoDAO telefonoDao;
+	private Telefono telefono;
 
-	public CrearTablaControlador() {
-		telefonoDAO = DAOFactory.getFactory().getTelefonoDAO();
-
+	public Buscar() {
+		telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
+		telefono = new Telefono();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String url = null;
 		try {
-			telefonoDAO.createTable();
-			url = "/index.html";
+			String id = request.getParameter("tel_id");
+			telefono = telefonoDao.read(id);
+			request.setAttribute("persona", telefono);
+			url = "/JSPs/buscar_telefono.jsp";
 		} catch (Exception e) {
 			url = "/JSPs/error.jsp";
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
-
 	}
-	
-	
+
 }

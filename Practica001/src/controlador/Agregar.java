@@ -11,13 +11,13 @@ import Conexion.DAOFactory;
 import Conexion.TelefonoDAO;
 import Modelo.Telefono;
 
-@WebServlet("/BuscarTelefonoControlador")
-public class BuscarTelefonoControlador extends HttpServlet {
+@WebServlet("/ActualizarTelefonoControlador")
+public class Agregar extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TelefonoDAO telefonoDao;
 	private Telefono telefono;
 
-	public BuscarTelefonoControlador() {
+	public Agregar() {
 		telefonoDao = DAOFactory.getFactory().getTelefonoDAO();
 		telefono = new Telefono();
 	}
@@ -28,10 +28,13 @@ public class BuscarTelefonoControlador extends HttpServlet {
 
 		String url = null;
 		try {
-			String id = request.getParameter("tel_id");
-			telefono = telefonoDao.read(id);
-			request.setAttribute("persona", telefono);
-			url = "/JSPs/buscar_telefono.jsp";
+			telefono.setTel_id(Integer.valueOf(request.getParameter("tel_id")));
+			telefono.setTel_numero(request.getParameter("tel_numero"));
+			telefono.setTel_tipo(request.getParameter("tel_tipo"));
+			telefono.setTel_operadora(request.getParameter("tel_operadora"));			
+			telefonoDao.create(telefono);
+
+			url = "/index.html";
 		} catch (Exception e) {
 			url = "/JSPs/error.jsp";
 		}
