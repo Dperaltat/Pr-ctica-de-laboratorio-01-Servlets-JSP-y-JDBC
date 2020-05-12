@@ -20,7 +20,7 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements 
 		conexionUno.update("DROP TABLE IF EXISTS usuario");
 		conexionUno.update("CREATE TABLE usuario (" + "usu_id INT NOT NULL, usu_cedula VARCHAR(12), "
 				+ "usu_nombre VARCHAR(255), usu_apellido VARVHAR(255), usu_correo VARCHAR(255), +"
-				+ "usu_contrasenia VARCHAR(255), PRIMARY KEY (USU_ID))");
+				+ "usu_contrasenia VARCHAR(255), PRIMARY KEY (usu_id))");
 		DAOFactory.getFactory().getTelefonoDAO().createTable();
 	}
 	
@@ -85,7 +85,7 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements 
 		if (persona.getTelefono() != null) {
 			DAOFactory.getFactory().getTelefonoDAO().delete(persona.getTelefono());
 		}
-		conexionUno.update("DELETE FROM User WHERE id = " + persona.getUsu_id());
+		conexionUno.update("DELETE FROM usuario WHERE usu_id = " + persona.getUsu_id());
 
 	}
 	
@@ -117,23 +117,21 @@ public class JDBCPersonaDAO extends JDBCGenericDAO<Persona, Integer> implements 
 	}
 	
 	@Override
-	public int buscar(String email, String pwd) {
-		// TODO Auto-generated method stub
+	public Persona buscar(String email, String pwd) {
 		
-		System.out.println("Correo:...."+ email.toString());
 		int i=0;
 		Persona persona = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM Usuario where usu_correo="+"'"+email+"'"+"AND usu_contrasenia="+"'"+pwd+"'");
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_correo="+"'"+email+"'"+"AND usu_contrasenia="+"'"+pwd+"'");
 		try {
 			if( rs != null && rs.next()) {
 				i=1;
-				
+				persona = new Persona (rs.getInt(i), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"), rs.getString("usu_contrasena"));
 			}
 		}catch(SQLException e) {
 			System.out.println(">>>WARNING (JDBCPersonaDAO): buscar" + e.getMessage());
 		}
 		
-		return i;
+		return persona;
 	}
 
 

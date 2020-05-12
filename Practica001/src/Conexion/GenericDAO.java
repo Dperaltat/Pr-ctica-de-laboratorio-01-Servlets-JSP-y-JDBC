@@ -19,7 +19,7 @@ public interface GenericDAO<T, ID> {
 
 	public List<T> find();
 	
-	int buscar(String email, String pwd);
+	Persona buscar(String email, String pwd);
 	
 	String cedula(String cdi);
 

@@ -7,16 +7,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ContextJDBC {
-	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/Guia_Telefónica";
+	private static final String DRIVER = "com.mysql.jdbc.Driver";
+	private static final String URL = "jdbc:mysql://localhost:3306/agenda";
 	private static final String USER = "root";
 	private static final String PASS = "12345.a";
 	private static ContextJDBC jdbc1 = null;
 	private static ContextJDBC jdbc2 = null;
+	private static ContextJDBC jdbc = null;
 	private Statement statement = null;
 
-	public ContextJDBC() {
+	public ContextJDBC() throws SQLException {
 		this.connect();
+	}
+	
+	protected static ContextJDBC getJDBC(){
+		if(jdbc == null)
+			try {
+				jdbc = new ContextJDBC();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return jdbc;
 	}
 
 	public void connect() {
@@ -50,9 +62,15 @@ public class ContextJDBC {
 		}
 	}
 	
+	
 	protected static ContextJDBC getJDBC1() {
 		if (jdbc1 == null) {
-			jdbc1 = new ContextJDBC();
+			try {
+				jdbc1 = new ContextJDBC();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return jdbc1;
 
@@ -60,7 +78,12 @@ public class ContextJDBC {
 	
 	protected static ContextJDBC getJDBC2() {
 		if (jdbc2 == null) {
-			jdbc2 = new ContextJDBC();
+			try {
+				jdbc2 = new ContextJDBC();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return jdbc2;
 

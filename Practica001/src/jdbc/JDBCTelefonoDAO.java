@@ -125,9 +125,21 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	}
 
 	@Override
-	public int buscar(String email, String pwd) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Persona buscar(String email, String pwd) {
+		
+		int i=0;
+		Persona persona = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE usu_correo="+"'"+email+"'"+"AND usu_contrasenia="+"'"+pwd+"'");
+		try {
+			if( rs != null && rs.next()) {
+				i=1;
+				persona = new Persona (rs.getInt(i), rs.getString("usu_cedula"), rs.getString("usu_nombre"), rs.getString("usu_apellido"),rs.getString("usu_correo"), rs.getString("usu_contrasena"));
+			}
+		}catch(SQLException e) {
+			System.out.println(">>>WARNING (JDBCPersonaDAO): buscar" + e.getMessage());
+		}
+		
+		return persona;
 	}
 
 

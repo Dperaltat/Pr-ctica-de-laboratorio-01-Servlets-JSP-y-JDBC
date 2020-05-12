@@ -21,7 +21,7 @@
 		<h1>
 			Inicia Sesión
 		</h1>
-		<form class="form-inline" action="/Practica001/Login" method="POST">
+		<form class="form-inline" action="/Practica001/LoginUsuario" method="POST">
 			<img alt="" src="/Practica001/css/Imagenes/user.png" class="img-circle" height=50px weight=50px>
   			<div class="form-group">
     			<label class="sr-only" for="exampleInputEmail3">Correo</label>
@@ -31,7 +31,7 @@
     			<label class="sr-only" for="exampleInputPassword3">Contraseña</label>
     			<input type="password" class="form-control" id="exampleInputPassword3" placeholder="Contraseña" name="usu_contrasenia" required>
   			</div>
-  				<button type="submit" class="btn btn-primary">Entrar</button>
+  				<button name="entrar" type="submit" class="btn btn-primary">Entrar</button>
 		</form>
 	</center>
 	</body>
