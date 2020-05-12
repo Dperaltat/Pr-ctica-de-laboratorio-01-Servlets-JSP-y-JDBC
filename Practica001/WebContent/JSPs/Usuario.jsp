@@ -28,7 +28,7 @@
     <div class="input-group">
       <input type="text" class="form-control">
       <span class="input-group-btn">
-        <button class="btn btn-default" name="cedula" type="button">Buscar</button>
+        <button class="btn btn-primary" name="usu_cedula" type="button">Buscar</button>
       </span>
     </div>
   </div>
@@ -38,7 +38,7 @@
     <div class="input-group">
       <input type="text" class="form-control">
       <span class="input-group-btn">
-        <button class="btn btn-default" name="correo" type="button">Buscar</button>
+        <button class="btn btn-primary" name="usu_correo" type="button">Buscar</button>
       </span>
     </div>
   </div>
@@ -88,8 +88,9 @@
 		</c:forEach>
 	</tbody>
 	</table>
+	</body>
 	<footer>
   <p>Posted by: Daniel Peralta</p>
   <p>Contact information: <a href="dperaltat1@est.ups.edu.ec">dperaltat1@est.ups.edu.ec</a></p>
-</footer>
+	</footer>
 </html>
